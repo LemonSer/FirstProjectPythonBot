@@ -1,6 +1,7 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
 from keyboard.keyboards import get_keyboard_1, get_keyboard_mor, get_keyboard_atr, get_keyboard_cho
+from keyboard.keyboard_inline import get_keyboard_iline_mor, get_keyboard_iline_atr, get_keyboard_iline_cho
 
 bot = Bot(token=TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
@@ -19,6 +20,7 @@ async def set_commands(bot: Bot):
 async def start(message: types.Message):
     await message.answer('Привет, я твой бот по LOL-у', reply_markup=get_keyboard_1())
 
+
 @dp.message_handler(lambda message: message.text == 'В начальное меню')
 async def button_10_click(message: types.Message):
     await message.answer('Привет, я твой бот по LOL-у', reply_markup=get_keyboard_1())
@@ -26,8 +28,8 @@ async def button_10_click(message: types.Message):
 # Мордекайзер
 @dp.message_handler(lambda message: message.text == 'Мордекайзер')
 async def button_1_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt7683195e1c4f6706/621ed30fba043c4a2c4a9f7a/RiotX_ChampionList_mordekaiser_v2.jpg?quality=90&width=250', caption= 'Мордекайзер', reply_markup=get_keyboard_mor())
-
+    await bot.send_photo(message.chat.id, photo= 'https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt7683195e1c4f6706/621ed30fba043c4a2c4a9f7a/RiotX_ChampionList_mordekaiser_v2.jpg?quality=90&width=250', caption= 'Мордекайзер', reply_markup=get_keyboard_iline_mor())
+    await message.answer('Дважды сраженный и трижды рожденный, Мордекайзер – жестокий военачальник минувшей эпохи, который с помощью некромантии обрекает души на вечное служение. Сейчас уже мало кто помнит его ранние завоевания или знает истинные пределы его могущества – но те древние души, которые это понимают, страшатся его возможного возвращения, ведь следом за миром мертвых Мордекайзер постарается захватить мир живых.', reply_markup=get_keyboard_mor())
 @dp.message_handler(lambda message: message.text == 'ВОСХОЖДЕНИЕ ТЬМЫ')
 async def button_5_click(message: types.Message):
     await bot.send_photo(message.chat.id, photo='https://cybersport-bet.ru/images/article/_webp/519971/mordekaiser-ability.webp' , caption= 'ВОСХОЖДЕНИЕ ТЬМЫ - Мордекайзер получает ауру, наносящую большой урон, и ускоряется после попадания 3 атаками или умениями по чемпионам или монстрам.')
@@ -52,8 +54,8 @@ async def button_9_click(message: types.Message):
 # Атрокс
 @dp.message_handler(lambda message: message.text == 'Атрокс')
 async def button_2_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt570145160dd39dca/5db05fa8347d1c6baa57be25/RiotX_ChampionList_aatrox.jpg?quality=90&width=250', caption= 'Атрокс', reply_markup=get_keyboard_atr())
-
+    await bot.send_photo(message.chat.id, photo= 'https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt570145160dd39dca/5db05fa8347d1c6baa57be25/RiotX_ChampionList_aatrox.jpg?quality=90&width=250', caption= 'Атрокс', reply_markup=get_keyboard_iline_atr())
+    await message.answer('Когда-то Атрокс и его собратья доблестно защищали Шуриму от Бездны, но в конце концов сами стали страшной угрозой для Рунтерры. Только с помощью хитрых магических уловок смертные сумели победить их. Спустя столетия заточения Атрокс первым обрел свободу, порабощая глупцов, которые пытались завладеть магическим оружием, содержащим его сущность. Вылепив из смертной плоти грубое подобие своего прежнего тела, он бродит по Рунтерре и готовится совершить долгожданную чудовищную месть.', reply_markup=get_keyboard_atr())
 @dp.message_handler(lambda message: message.text == 'СТОЙКА РАЗРУШИТЕЛЯ')
 async def button_11_click(message: types.Message):
     await bot.send_photo(message.chat.id, photo='https://yt3.ggpht.com/a/AATXAJzx3t3zKOS1z9EpedNS3dga6uy_AS1CY5c1=s900-c-k-c0xffffffff-no-rj-mo' , caption= 'СТОЙКА РАЗРУШИТЕЛЯ - Периодически следующая автоатака Атрокса дополнительно наносит физический урон в зависимости от максимального запаса здоровья цели и лечит его.')
@@ -78,7 +80,8 @@ async def button_15_click(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Чо`Гат')
 async def button_3_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Chogath_0.jpg', caption= 'Чо`Гат', reply_markup=get_keyboard_cho())
+    await bot.send_photo(message.chat.id, photo= 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Chogath_0.jpg', caption= 'Чо`Гат', reply_markup=get_keyboard_iline_cho())
+    await message.answer('С тех пор как Чо Гат впервые попал под палящее солнце Рунтерры, этого зверя терзает исконная и неутолимая жажда голода. Совершенное воплощение желания Бездны поглощать все живое, Чо Гат обладает сложным строением, благодаря которому все съеденное им быстро превращается в клетки его организма. Он увеличивают свою мышечную массу и плотность, а также укрепляет внешний панцирь, чья прочность сравнима с органическим алмазом. Когда же порождение Бездны желает замедлить свой рост, оно изрыгает излишний материал в виде бритвенно-острых шипов, калеча добычу и оставляя ее про запас.', reply_markup=get_keyboard_cho())
 
 @dp.message_handler(lambda message: message.text == 'ПЛОТОЯДНОСТЬ')
 async def button_17_click(message: types.Message):

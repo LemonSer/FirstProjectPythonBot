@@ -5,8 +5,7 @@ def get_keyboard_1():
     button_1 = KeyboardButton('Мордекайзер')
     button_2 = KeyboardButton('Атрокс')
     button_3 = KeyboardButton('Чо`Гат')
-    button_4 = KeyboardButton('Оф.вики')
-    keyboard.add(button_1, button_2, button_3, button_4)
+    keyboard.add(button_1, button_2, button_3)
     return keyboard
 
 def get_keyboard_mor():
