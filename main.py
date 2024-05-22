@@ -1,9 +1,12 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
 from keyboard.keyboards import start_menu, skills
+from database.database import get_user, add_user, initialize_db
 
 bot = Bot(token=TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
+
+initialize_db()
 
 
 async def set_commands(bot: Bot):
@@ -13,11 +16,14 @@ async def set_commands(bot: Bot):
 
     await bot.set_my_commands(commands)
 
-
-
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
-    await bot.send_photo(message.chat.id, photo='https://www.wallpapertip.com/wmimgs/83-830704_league-of-legends-logo-wallpaper.jpg', caption= 'Приветствую, я твой помощник и путиводитель по игре LOL', reply_markup=start_menu())
+    user = get_user(message.from_user.id)
+    if user is None:
+        add_user(message.from_user.id, message.from_user.username, message.from_user.first_name, message.from_user.last_name)
+        await bot.send_photo(message.chat.id, photo='https://www.wallpapertip.com/wmimgs/83-830704_league-of-legends-logo-wallpaper.jpg', caption= 'Приветствую, я твой помощник и путиводитель по игре LOL', reply_markup=start_menu())
+    else:
+        await bot.send_photo(message.chat.id, photo='https://www.wallpapertip.com/wmimgs/83-830704_league-of-legends-logo-wallpaper.jpg', caption= 'Приветствую, я твой помощник и путиводитель по игре LOL', reply_markup=start_menu())
 
 @dp.callback_query_handler(lambda c: c.data == 'tutorial')
 async def tutorial(callback_query: types.CallbackQuery):
@@ -26,7 +32,7 @@ async def tutorial(callback_query: types.CallbackQuery):
 @dp.callback_query_handler(lambda c: c.data == 'skills_1')
 async def skills_1(callback_query: types.CallbackQuery):
     await bot.send_photo(callback_query.from_user.id, photo='https://static.wikia.nocookie.net/leagueoflegends/images/2/2e/Mordekaiser_Darkness_Rise.png/revision/latest?cb=20190527181220',caption='Наносящие урон автоатаки и умения Мордекайзера против вражеских чемпионов и больших монстров дают ему заряд на 4 секунды. При трех зарядах, Мордекайзер получает эффект Восхождение тьмы. Длительность эффекта обновляется при последующем нападении на чемпионов и монстров.', reply_markup=skills())
-
+    #await bot.delete_message(callback_query.from_user.id)
 @dp.callback_query_handler(lambda c: c.data == 'skills_2')
 async def skills_2(callback_query: types.CallbackQuery):
     await bot.send_photo(callback_query.from_user.id,
